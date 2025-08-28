@@ -3,7 +3,7 @@ import {
   extractReasoningMiddleware,
   wrapLanguageModel,
 } from 'ai';
-import { openai } from '@ai-sdk/openai';
+import { openai, createOpenAI } from '@ai-sdk/openai';
 import {
   artifactModel,
   chatModel,
@@ -31,7 +31,9 @@ export const myProvider = isTestEnvironment
         'title-model': openai('gpt-4o-mini'),
         'artifact-model': openai('gpt-4o'),
       },
-      imageModels: {
-        'small-model': openai('dall-e-3'),
-      },
+      // imageModels: {
+      //   'small-model': openai('dall-e-3', {
+      //     maxImagesPerCall: 1,
+      //   }),
+      // },
     });

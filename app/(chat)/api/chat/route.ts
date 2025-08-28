@@ -43,7 +43,7 @@ export const maxDuration = 60;
 
 let globalStreamContext: ResumableStreamContext | null = null;
 
-export function getStreamContext() {
+export function getStreamContext(): ResumableStreamContext | null {
   // Temporarily disable resumable streams to avoid Redis issues
   console.log(' > Resumable streams are disabled (Redis temporarily disabled for testing)');
   return null;

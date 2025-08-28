@@ -66,7 +66,7 @@ export async function GET(
     execute: () => {},
   });
 
-  const stream = await streamContext.resumableStream(recentStreamId, () =>
+  const stream = await streamContext!.resumableStream(recentStreamId, () =>
     emptyDataStream.pipeThrough(new JsonToSseTransformStream()),
   );
 

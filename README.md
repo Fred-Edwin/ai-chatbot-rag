@@ -1,195 +1,114 @@
 # AI Chatbot with RAG
 
-A production-ready AI chatbot built with Next.js 15 and enhanced with RAG (Retrieval-Augmented Generation) capabilities for knowledge base integration.
+A modern AI chatbot application enhanced with Retrieval-Augmented Generation (RAG) capabilities, allowing users to chat with their documents in real-time.
 
-## ✨ Features
+## 🚀 Features
 
-### Core Chatbot
-- **Next.js App Router** with React Server Components and Server Actions
-- **AI SDK Integration** - Support for OpenAI, Anthropic, xAI and other providers
-- **Real-time Streaming** - Streamed chat responses with typing indicators
-- **Chat History** - Persistent conversation storage with PostgreSQL
-- **Authentication** - Secure auth with NextAuth.js
-- **Modern UI** - Responsive design with shadcn/ui and Tailwind CSS
+- **Multi-Provider AI Chat** - Support for OpenAI, Anthropic, and xAI models
+- **Document Intelligence** - Upload PDFs, DOCX, and TXT files to create knowledge bases
+- **Vector Search** - Semantic search through your documents using Pinecone
+- **Real-time Processing** - Stream responses with live document processing updates
+- **Knowledge Management** - Organize documents into searchable knowledge bases
+- **Modern UI** - Clean, responsive interface built with Next.js 15 and React 19
 
-### RAG Enhancement
-- **Knowledge Base Management** - Create and organize document collections
-- **Multi-format Support** - Process PDF, DOCX, and TXT documents
-- **Vector Search** - Semantic similarity search with Pinecone
-- **Document Processing** - Automated chunking and embedding generation
-- **Context Integration** - Seamlessly inject relevant knowledge into chat responses
-- **Dual Mode** - Switch between general AI chat and knowledge-enhanced conversations
+## 🛠️ Tech Stack
 
-## 🚀 Quick Start
+- **Frontend**: Next.js 15, React 19, TypeScript, Tailwind CSS
+- **Backend**: Node.js, Drizzle ORM, PostgreSQL
+- **AI/RAG**: Vercel AI SDK, OpenAI Embeddings, Pinecone Vector DB
+- **Auth**: NextAuth.js
+- **Storage**: Vercel Blob, Upstash Redis
+
+## 🏃‍♂️ Quick Start
 
 ### Prerequisites
-- Node.js 18+ and pnpm
-- PostgreSQL database (we recommend [Neon](https://neon.tech/))
-- [Pinecone](https://www.pinecone.io/) account for vector storage
-- OpenAI API key for embeddings and chat
-- Vercel account for deployment (optional)
 
-### Environment Setup
+- Node.js 18+ with pnpm
+- PostgreSQL database
+- Pinecone account for vector storage
+- OpenAI API key
 
-1. **Clone and install**:
+### Installation
+
+1. **Clone and install dependencies**:
    ```bash
-   git clone <your-repo-url>
-   cd ai-chatbot
+   git clone https://github.com/Fred-Edwin/ai-chatbot-rag.git
+   cd ai-chatbot-rag
    pnpm install
    ```
 
-2. **Configure environment** (copy `.env.example` to `.env.local`):
-   ```bash
+2. **Set up environment variables** (copy `.env.example` to `.env.local`):
+   ```env
    # Database
-   POSTGRES_URL="postgresql://..."
+   POSTGRES_URL="your-postgres-connection-string"
    
-   # Authentication  
-   AUTH_SECRET="generate-with-openssl-rand"
+   # Authentication
+   AUTH_SECRET="your-auth-secret"
    
-   # AI Provider (choose one)
-   OPENAI_API_KEY="sk-..."
-   # or
-   ANTHROPIC_API_KEY="sk-ant-..."
+   # AI Provider
+   OPENAI_API_KEY="your-openai-key"
    
-   # RAG Components
+   # Vector Database
    PINECONE_API_KEY="your-pinecone-key"
    PINECONE_INDEX_NAME="your-index-name"
    
    # File Storage
-   BLOB_READ_WRITE_TOKEN="vercel-blob-token"
+   BLOB_READ_WRITE_TOKEN="your-vercel-blob-token"
    ```
 
-3. **Database setup**:
+3. **Run database migrations**:
    ```bash
    pnpm db:migrate
    ```
 
-4. **Start development**:
+4. **Start the development server**:
    ```bash
    pnpm dev
    ```
 
-Visit `http://localhost:3000` to see your chatbot in action!
+Visit `http://localhost:3000` to start chatting!
 
-## 📁 Project Structure
+## 📖 Usage
 
-```
-app/
-├── (auth)/                 # Authentication pages
-├── (chat)/                 # Chat interface and API
-├── knowledge/              # Knowledge base management UI
-└── api/
-    ├── chat/              # Chat API with RAG integration
-    └── knowledge/         # Knowledge base CRUD operations
-
-components/
-├── ui/                    # shadcn/ui components
-├── chat.tsx              # Main chat interface
-├── chat-header.tsx       # Chat controls and KB selector
-├── knowledge-*.tsx       # Knowledge base UI components
-└── ...
-
-lib/
-├── ai/                   # AI provider configurations
-├── db/                   # Database schema and queries
-├── rag/                  # RAG pipeline components
-│   ├── pipeline.ts       # Document processing
-│   ├── embeddings.ts     # Vector generation
-│   ├── retrieval.ts      # Semantic search
-│   └── pinecone.ts       # Vector database ops
-└── ...
-```
-
-## 🔧 RAG System Architecture
-
-### Data Flow
-1. **Upload** → Documents stored in Vercel Blob
-2. **Process** → Text extraction → Chunking → Embedding generation
-3. **Store** → Vector embeddings saved to Pinecone with metadata
-4. **Query** → User message → Semantic search → Context retrieval
-5. **Generate** → RAG-enhanced prompt → AI response with sources
-
-### API Endpoints
-- `GET /api/knowledge` - List user's knowledge bases
-- `POST /api/knowledge` - Create new knowledge base
-- `POST /api/knowledge/[id]/documents` - Upload documents
-- `POST /api/knowledge/[id]/search` - Search within knowledge base
-- `POST /api/chat` - RAG-enhanced chat (auto-detects KB selection)
-
-## 🎯 Usage Examples
-
-### Basic Chat
-Simply start typing to chat with AI. Toggle between different AI models using the model selector.
-
-### Knowledge-Enhanced Chat
-1. **Create Knowledge Base**: Visit `/knowledge` to create your first knowledge base
+1. **Create a Knowledge Base**: Navigate to the Knowledge page to create your first knowledge base
 2. **Upload Documents**: Add PDF, DOCX, or TXT files to your knowledge base
-3. **Select in Chat**: Use the knowledge base dropdown in the chat header
-4. **Ask Questions**: Your questions will now be answered using your documents
+3. **Start Chatting**: Select your knowledge base from the chat interface and ask questions about your documents
 
-Example:
+## 🏗️ Architecture
+
+The application implements a complete RAG pipeline:
+
 ```
-👤 "What are the key findings in the research papers?"
-🤖 "Based on your uploaded research documents, the key findings include..."
-   📄 Sources: research-paper-1.pdf, analysis-report.docx
+Document Upload → Text Processing → Chunking → Vector Embeddings → Pinecone Storage
+                                                                           ↓
+User Question → Semantic Search → Context Retrieval → AI Response with Sources
 ```
 
 ## 🚀 Deployment
 
-### Vercel (Recommended)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyour-username%2Fai-chatbot-rag)
+Deploy to Vercel with one click:
 
-1. Connect your GitHub repository
-2. Configure environment variables in Vercel dashboard
-3. Deploy automatically with each push to main
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FFred-Edwin%2Fai-chatbot-rag)
 
-### Self-Hosted
+Or deploy manually:
 ```bash
 pnpm build
 pnpm start
 ```
 
-Ensure your environment variables are set in production.
+## 📝 Development
 
-## 🔧 Development
-
-### Key Commands
 ```bash
 pnpm dev          # Start development server
-pnpm build        # Build for production  
-pnpm lint         # Run ESLint and Biome
+pnpm build        # Build for production
+pnpm lint         # Run linting
 pnpm db:migrate   # Run database migrations
-pnpm db:seed      # Seed database (if available)
 ```
-
-### Adding AI Providers
-The project uses Vercel AI SDK. To add a new provider:
-
-1. Install the provider package
-2. Configure in `lib/ai/providers.ts`
-3. Add environment variables
-4. Update model selector component
-
-See [AI SDK Providers](https://sdk.vercel.ai/providers) for supported providers.
-
-### Customizing RAG
-- **Chunking**: Modify `lib/rag/pipeline.ts` for different chunk sizes
-- **Embeddings**: Switch embedding models in `lib/rag/embeddings.ts`  
-- **Search**: Tune similarity thresholds in `lib/rag/retrieval.ts`
-- **UI**: Customize knowledge base interface in `components/knowledge-*.tsx`
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Make your changes following the existing code patterns
-4. Ensure tests pass: `pnpm lint`
-5. Submit a pull request
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📝 License
+## 📄 License
 
-MIT License - see [LICENSE](LICENSE) for details.
-
----
-
-**Built with**: Next.js 15, React 19, TypeScript, Tailwind CSS, Pinecone, OpenAI
+This project is open source and available under the [MIT License](LICENSE).
