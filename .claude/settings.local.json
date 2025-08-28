@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(/D:\\d\\AI applications\\unfinished/**)",
+      "Bash(pnpm db:generate:*)",
+      "Bash(pnpm db:migrate:*)",
+      "Bash(openssl rand:*)",
+      "Bash(node:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx next lint:*)",
+      "Bash(npx next build:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
